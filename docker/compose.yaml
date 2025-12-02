@@ -1,9 +1,45 @@
+# services:
+# app:
+#   # image: ft-dev:latest
+#   build:
+#     # context: ~/apps/next-app
+#     context: .
+#     # dockerfile: docker/Dockerfile.nextjs.prod
+#   ports:
+#   - 3000:3000
+
 services:
-  app:
-    # image: ft-dev:latest
-    build:
-      # context: ~/apps/next-app
-      context: .
-      # dockerfile: docker/Dockerfile.nextjs.prod
+  db:
+    container_name: ssna_db
+    image: postgres
+    restart: always
+    shm_size: 128mb
     ports:
-    - 3000:3000
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: ssna
+      POSTGRES_PASSWORD: example
+    # Only till pgsl 15
+    # volumes:
+    #   - pgdata:/var/lib/postgresql/data
+    volumes:
+      - ssna_pgdata:/var/lib/postgresql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready"]
+      interval: 1s
+      timeout: 5s
+      retries: 10
+
+  # adminer:
+  #   image: adminer
+  #   restart: always
+  #   ports:
+  #     - 8080:8080
+
+volumes:
+  ssna_pgdata:
+    name: ssna_pgdata
+
+networks:
+  default:
+    name: ssna_network

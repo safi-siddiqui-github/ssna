@@ -7,7 +7,9 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "build:log": "node scripts/build-logs.ts"
+    "build:log": "node scripts/build-logs.ts",
+    "docker:up": " docker compose -f docker/compose.yaml up -d",
+    "docker:down": " docker compose -f docker/compose.yaml down"
   },
   "dependencies": {
     "next": "16.0.6",
@@ -15,15 +17,23 @@
     "react-dom": "19.2.0"
   },
   "devDependencies": {
+    "@prisma/adapter-neon": "^7.0.1",
+    "@prisma/adapter-pg": "^7.0.1",
+    "@react-email/components": "^1.0.1",
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "bcryptjs": "^3.0.3",
+    "dotenv": "^17.2.3",
     "eslint": "^9",
     "eslint-config-next": "16.0.6",
     "prettier": "^3.7.3",
     "prettier-plugin-organize-imports": "^4.3.0",
     "prettier-plugin-tailwindcss": "^0.7.2",
+    "prisma": "^7.0.1",
+    "react-email": "^5.0.5",
+    "resend": "^6.5.2",
     "tailwindcss": "^4",
     "typescript": "^5"
   }
