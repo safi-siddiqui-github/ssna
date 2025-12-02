@@ -5,16 +5,16 @@ import { PrismaClient } from "../generated/prisma/client";
 const globalForPrisma = global as unknown as {
   prisma: PrismaClient;
 };
-const isProduction = process.env.NODE_ENV !== "production";
+const isProduction = process.env.NODE_ENV === "production";
 const localUrl = process.env.POSTGRESQL_DATABASE_URL ?? "";
 const databaseUrl = process.env.DATABASE_URL ?? "";
 let adapter;
 if (isProduction) {
+  adapter = new PrismaNeon({ connectionString: databaseUrl });
+} else {
   adapter = new PrismaPg({
     connectionString: localUrl,
   });
-} else {
-  adapter = new PrismaNeon({ connectionString: databaseUrl });
 }
 const prisma =
   globalForPrisma.prisma ||

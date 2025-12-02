@@ -8,8 +8,8 @@
     "start": "next start",
     "lint": "eslint",
     "build:log": "node scripts/build-logs.ts",
-    "docker:up": " docker compose -f docker/compose.yaml up -d",
-    "docker:down": " docker compose -f docker/compose.yaml down"
+    "docker:up": "docker compose -f docker/compose.yaml up -d",
+    "docker:down": "docker compose -f docker/compose.yaml down"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.2",
