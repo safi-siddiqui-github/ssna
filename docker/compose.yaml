@@ -1,0 +1,9 @@
+services:
+  app:
+    # image: ft-dev:latest
+    build:
+      # context: ~/apps/next-app
+      context: .
+      # dockerfile: docker/Dockerfile.nextjs.prod
+    ports:
+    - 3000:3000
