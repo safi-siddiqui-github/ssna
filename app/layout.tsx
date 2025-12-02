@@ -1,3 +1,4 @@
+import { Toaster } from "@/components/ui/sonner";
 import { CustomComponentType } from "@/types/component-types";
 import type { Metadata } from "next";
 import "./globals.css";
@@ -10,7 +11,10 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: CustomComponentType) {
   return (
     <html lang="en">
-      <body className="antialiased">{children}</body>
+      <body className="antialiased">
+        {children}
+        <Toaster />
+      </body>
     </html>
   );
 }

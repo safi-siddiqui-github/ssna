@@ -6,7 +6,7 @@ const globalForPrisma = global as unknown as {
   prisma: PrismaClient;
 };
 const isProduction = process.env.NODE_ENV !== "production";
-const localUrl = process.env.LOCAL_DATABASE_URL ?? "";
+const localUrl = process.env.POSTGRESQL_DATABASE_URL ?? "";
 const databaseUrl = process.env.DATABASE_URL ?? "";
 let adapter;
 if (isProduction) {
