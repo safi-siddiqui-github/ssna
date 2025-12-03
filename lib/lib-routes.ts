@@ -1,16 +1,11 @@
 export const Routes = {
   admin: {},
   web: {
-    auth: {},
+    auth: {
+      dashboard: "/dashboard",
+    },
     general: {
       home: "/",
-      contact: "/contact",
-      about: "/about",
-      features: "/features",
-      howItWorks: "/how-it-works",
-      help: "/help",
-      events: "/events",
-      organizers: "/organizers",
     },
     guest: {
       signin: "/signin",

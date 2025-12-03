@@ -1,5 +1,5 @@
 import { Toaster } from "@/components/ui/sonner";
-import { CustomComponentType } from "@/types/component-types";
+import { CustomComponentType } from "@/types/types-component";
 import type { Metadata } from "next";
 import "./globals.css";
 

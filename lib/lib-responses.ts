@@ -1,7 +1,36 @@
-import { ApiResponseBodyType, ResponseBodyType } from "@/types/types-responses";
+import {
+  OrNull,
+  OTPFullModel,
+  SessionFullModel,
+  UserFullModel,
+} from "@/types/types-models";
 import { NextResponse } from "next/server";
 import { FieldValues, Path, UseFormReturn } from "react-hook-form";
 import { ZodError } from "zod";
+import { $ZodIssue } from "zod/v4/core";
+import {
+  ResendSendEmailBodyType,
+  ResendSendEmailResponseType,
+} from "./lib-resend";
+
+export type ResponseDataType = {
+  user?: OrNull<UserFullModel>;
+  session?: OrNull<SessionFullModel>;
+  otp?: OrNull<OTPFullModel>;
+  resendSendRes?: OrNull<ResendSendEmailResponseType>;
+  resendSendBody?: OrNull<ResendSendEmailBodyType>;
+};
+
+export type ResponseBodyType = {
+  success: boolean;
+  message?: string;
+  data?: ResponseDataType;
+  error?: {
+    type: "zod" | "prisma" | "axios" | "resend" | "unknown";
+    message: string;
+    details?: $ZodIssue[];
+  };
+};
 
 export const ActionResponseHelper = async (
   callback: () => Promise<ResponseBodyType>,
@@ -39,6 +68,8 @@ export const ActionResponseHelper = async (
     };
   }
 };
+
+export type ApiResponseBodyType = NextResponse<ResponseBodyType> | NextResponse;
 
 export const ApiResponseHelper = async (
   callback: () => Promise<ApiResponseBodyType>,
@@ -100,6 +131,27 @@ export const FormSubmitHelper = async <TFieldValues extends FieldValues>(
     };
   }
 };
+
+// // export type AxiosResponseType<T = AxiosResponseDataType> = AxiosResponse<T>;
+// // export type AxiosErrorType<T = AxiosResponseDataType> = AxiosError<T>;
+
+// // export type RouteResponseType =
+// //   | NextResponse<AxiosResponseDataType>
+// //   | NextResponse;
+
+// export type AmplifyErrorType = {
+//   name?:
+//     | "AuthUserPoolException"
+//     | "UsernameExistsException"
+//     | "InvalidPasswordException"
+//     | "InvalidPasswordException"
+//     | "UserUnAuthenticatedException"
+//     | "EmptyConfirmSignUpCode"
+//     | "CodeMismatchException"
+//     | "NotAuthorizedException"
+//     | "";
+//   message?: string;
+// };
 
 // const unknownError: AxiosResponseDataType = {
 //   success: false,

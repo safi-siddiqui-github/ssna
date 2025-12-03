@@ -18,6 +18,7 @@ import {
 } from "@/components/ui/field";
 import { ActionResponseHelper, FormSubmitHelper } from "@/lib/lib-responses";
 import { Routes } from "@/lib/lib-routes";
+import { useUserStore } from "@/lib/lib-zustand";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
@@ -26,6 +27,7 @@ import { SigninSchema } from "./lib";
 
 export default function SigninComponent() {
   const router = useRouter();
+  const userStore = useUserStore();
   const form = useForm<z.infer<typeof SigninSchema>>({
     resolver: zodResolver(SigninSchema),
     defaultValues: {
@@ -42,8 +44,9 @@ export default function SigninComponent() {
         form,
       );
       if (formRes?.success) {
+        userStore?.setUser(formRes?.data?.user);
         toast.success("Signin Completed");
-        router.push(Routes?.web?.guest?.signup);
+        router.push(Routes?.web?.auth.dashboard);
       }
       return formRes;
     });

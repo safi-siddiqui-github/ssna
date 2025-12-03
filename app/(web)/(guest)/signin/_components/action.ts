@@ -2,9 +2,9 @@
 
 import { bcryptCompareHelper } from "@/lib/lib-bcryptjs";
 import { UserDTO } from "@/lib/lib-dto";
-import { ActionResponseHelper } from "@/lib/lib-responses";
+import { ActionResponseHelper, ResponseDataType } from "@/lib/lib-responses";
+import { CreateSessionHelper } from "@/lib/lib-session";
 import prisma from "@/prisma/database";
-import { ResponseDataType } from "@/types/types-responses";
 import { ZodError } from "zod";
 import { SigninSchema } from "./lib";
 
@@ -37,6 +37,28 @@ export const SigninAction = async (req?: ResponseDataType) =>
         },
       ]);
     }
+    const sessionRes = await CreateSessionHelper({
+      user: userExist,
+    });
+    if (!sessionRes?.success) {
+      throw new ZodError([
+        {
+          code: "custom",
+          message: "Session not created",
+          path: ["email"],
+        },
+      ]);
+    }
+    // const emailRes = await SigninEmailFN({ user: userExist });
+    // if (!emailRes?.success) {
+    //   throw new ZodError([
+    //     {
+    //       code: "custom",
+    //       message: "Email not sent",
+    //       path: ["email"],
+    //     },
+    //   ]);
+    // }
     return {
       success: true,
       data: {
