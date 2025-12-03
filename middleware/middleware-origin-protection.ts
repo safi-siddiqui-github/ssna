@@ -3,7 +3,7 @@ import { NextRequest } from "next/server";
 import { ZodError } from "zod";
 
 // Origin & Referrer Protection
-const allowedOrigin = ["localhost:3000", "eventverse-app.com"];
+const allowedOrigin = ["localhost:3000", "ssna.vercel.app"];
 
 export default async function MiddlewareOriginProtection(
   request: NextRequest,
