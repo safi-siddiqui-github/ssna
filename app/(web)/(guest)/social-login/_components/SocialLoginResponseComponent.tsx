@@ -5,10 +5,20 @@ import { Routes } from "@/lib/lib-routes";
 import { VerifySessionHelper } from "@/lib/lib-session";
 import { useUserStore } from "@/lib/lib-zustand";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useCallback, useEffect } from "react";
+import { Suspense, useCallback, useEffect } from "react";
 import { toast } from "sonner";
 
 export function SocialLoginResponseComponent() {
+  return (
+    <div className="">
+      <Suspense>
+        <SocialLoginResponseForm />
+      </Suspense>
+    </div>
+  );
+}
+
+function SocialLoginResponseForm() {
   const router = useRouter();
   const { setUser } = useUserStore();
   const params = useSearchParams();
