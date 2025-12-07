@@ -19,6 +19,7 @@ import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import z from "zod";
+import SocialLoginComponent from "../../_components/SocialLoginComponent";
 import { SignupAction } from "./action";
 import { SignupSchema } from "./lib";
 
@@ -46,49 +47,54 @@ export default function SignupComponent() {
     });
   };
   return (
-    <div className="flex min-h-screen flex-col items-center justify-center gap-4 p-4">
-      <form
-        className="flex w-full max-w-md flex-col"
-        onSubmit={form.handleSubmit(onSubmit)}
-      >
-        <FieldGroup>
-          <FieldSet>
-            <FieldLegend className="text-xl!">Create account</FieldLegend>
-            <FieldDescription>Sign up account to get started</FieldDescription>
-            <FieldGroup className="">
-              <ControllerInputComponent
-                form={form}
-                name="email"
-                label="Email"
-                componentProps={{
-                  placeholder: "Enter your email",
-                }}
-              />
-              <ControllerInputComponent
-                form={form}
-                name="password"
-                label="Password"
-                componentProps={{
-                  placeholder: "********",
-                  type: "password",
-                }}
-              />
-            </FieldGroup>
-            <Field>
-              <FormButtonComponent
-                form={form}
-                text="Sign Up"
-              />
-            </Field>
-          </FieldSet>
-        </FieldGroup>
-      </form>
-      <Link
-        href={Routes.web.guest.signin}
-        className="hover:underline"
-      >
-        Already have an Account? Sign In
-      </Link>
+    <div className="flex min-h-screen flex-col items-center justify-center p-4">
+      <div className="flex w-full max-w-md flex-col gap-4">
+        <form
+          className="flex w-full max-w-md flex-col"
+          onSubmit={form.handleSubmit(onSubmit)}
+        >
+          <FieldGroup>
+            <FieldSet>
+              <FieldLegend className="text-xl!">Create account</FieldLegend>
+              <FieldDescription>
+                Sign up account to get started
+              </FieldDescription>
+              <FieldGroup className="">
+                <ControllerInputComponent
+                  form={form}
+                  name="email"
+                  label="Email"
+                  componentProps={{
+                    placeholder: "Enter your email",
+                  }}
+                />
+                <ControllerInputComponent
+                  form={form}
+                  name="password"
+                  label="Password"
+                  componentProps={{
+                    placeholder: "********",
+                    type: "password",
+                  }}
+                />
+              </FieldGroup>
+              <Field>
+                <FormButtonComponent
+                  form={form}
+                  text="Sign Up"
+                />
+              </Field>
+            </FieldSet>
+          </FieldGroup>
+        </form>
+        <Link
+          href={Routes.web.guest.signin}
+          className="text-center hover:underline"
+        >
+          Already have an Account? Sign In
+        </Link>
+        <SocialLoginComponent />
+      </div>
     </div>
   );
 }

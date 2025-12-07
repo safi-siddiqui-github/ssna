@@ -89,24 +89,22 @@ export const VerifySessionHelper = async (): Promise<ResponseBodyType> => {
     isAfter(payload?.expiresAt ?? "", new Date()) &&
     payload.sessionId
   ) {
-    // const apiRes = await ApiResponseHelper(
-    //   async () =>
-    //     await AxiosClient.post("session/verify", {
-    //       id: payload?.sessionId,
-    //     }),
-    // );
-    // if (
-    //   apiRes?.success &&
-    //   apiRes?.data?.session &&
-    //   apiRes?.data?.session?.user
-    // ) {
-    //   return {
-    //     success: true,
-    //     data: {
-    //       session: apiRes?.data?.session,
-    //     },
-    //   };
-    // }
+    const session = await prisma.session.findUnique({
+      where: {
+        id: payload?.sessionId,
+      },
+      include: {
+        user: true,
+      },
+    });
+    if (session && session?.user) {
+      return {
+        success: true,
+        data: {
+          session,
+        },
+      };
+    }
   }
   return {
     success: false,

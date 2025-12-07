@@ -22,6 +22,7 @@ import { useUserStore } from "@/lib/lib-zustand";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
+import SocialLoginComponent from "../../_components/SocialLoginComponent";
 import { SigninAction } from "./action";
 import { SigninSchema } from "./lib";
 
@@ -53,63 +54,66 @@ export default function SigninComponent() {
   };
   return (
     <div className="flex min-h-screen flex-col items-center justify-center gap-4 p-4">
-      <form
-        className="flex w-full max-w-md flex-col"
-        onSubmit={form.handleSubmit(onSubmit)}
-      >
-        <FieldGroup>
-          <FieldSet>
-            <FieldLegend className="text-xl!">Welcome back</FieldLegend>
-            <FieldDescription>
-              Sign in to your account to continue
-            </FieldDescription>
-            <FieldGroup className="">
-              <ControllerInputComponent
-                form={form}
-                name="email"
-                label="Email / Username"
-                componentProps={{
-                  placeholder: "Enter identifier",
-                }}
-              />
-              <Field>
+      <div className="flex w-full max-w-md flex-col gap-4">
+        <form
+          className="flex flex-col"
+          onSubmit={form.handleSubmit(onSubmit)}
+        >
+          <FieldGroup>
+            <FieldSet>
+              <FieldLegend className="text-xl!">Welcome back</FieldLegend>
+              <FieldDescription>
+                Sign in to your account to continue
+              </FieldDescription>
+              <FieldGroup className="">
                 <ControllerInputComponent
                   form={form}
-                  name="password"
-                  label="Password"
+                  name="email"
+                  label="Email / Username"
                   componentProps={{
-                    placeholder: "********",
-                    type: "password",
+                    placeholder: "Enter identifier",
                   }}
                 />
-                <Link
-                  className="hover:underline"
-                  href={Routes.web.guest.forgotPasswordCheckEmail}
-                >
-                  Forgot Password?
-                </Link>
+                <Field>
+                  <ControllerInputComponent
+                    form={form}
+                    name="password"
+                    label="Password"
+                    componentProps={{
+                      placeholder: "********",
+                      type: "password",
+                    }}
+                  />
+                  <Link
+                    className="hover:underline"
+                    href={Routes.web.guest.forgotPasswordCheckEmail}
+                  >
+                    Forgot Password?
+                  </Link>
+                </Field>
+                <ControllerCheckboxComponent
+                  form={form}
+                  name="remember"
+                  label="Remember Me"
+                />
+              </FieldGroup>
+              <Field>
+                <FormButtonComponent
+                  form={form}
+                  text="Sign In"
+                />
               </Field>
-              <ControllerCheckboxComponent
-                form={form}
-                name="remember"
-                label="Remember Me"
-              />
-            </FieldGroup>
-            <Field>
-              <FormButtonComponent
-                form={form}
-                text="Sign In"
-              />
-            </Field>
-          </FieldSet>
-        </FieldGroup>
-      </form>
-      <Link
-        href={Routes.web.guest.signup}
-        className="hover:underline"
-      >
-        Dont have an Account? Sign Up
-      </Link>
+            </FieldSet>
+          </FieldGroup>
+        </form>
+        <Link
+          href={Routes.web.guest.signup}
+          className="text-center hover:underline"
+        >
+          Dont have an Account? Sign Up
+        </Link>
+        <SocialLoginComponent />
+      </div>
     </div>
   );
 }
